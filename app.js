@@ -31,17 +31,18 @@ app.use(express.static('public'));
 
 models.User.sync({})
 .then(function () {
-    return models.Page.sync({})
+    return models.Page.sync(); // coordinates database with page model
 })
 .then(function () { // create database before starting server
-    app.listen(3001, function () {
+    app.listen(3000, function () {
         console.log('Server is listening on port 3001!');
     });
 })
 .catch(console.error);
 
 // start the server
-//app.listen(3001);
+//app.listen(3000);
+app.use('/wiki', require('./routes/wiki'));
 
 app.get('/', function (req, res) {
     res.render('index');
